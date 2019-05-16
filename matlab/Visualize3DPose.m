@@ -67,13 +67,15 @@ for idx = 1:length(poseData)
             set(skeletonDraw{o}{jj},'Visible','on');
         end
         
+        joints19 = reshape(poseData{idx}.bodies{o}.joints19, [4, 19])';
+        
         % draw skeletons
         for j=1:size(BoneJointOrder,2)
             jointPts =[];   % Nx3 matrix
             
             for jj=1:size(BoneJointOrder{j},2)
                 jointIdx =  BoneJointOrder{j}(jj);
-                jointPts = [jointPts ; poseData{idx}.bodies{o}.joints15(jointIdx,:)];
+                jointPts = [jointPts ; joints19(jointIdx, :)];
             end
             set(skeletonDraw{o}{j},'xdata',jointPts(:,1));
             set(skeletonDraw{o}{j},'ydata',jointPts(:,2));
@@ -81,7 +83,7 @@ for idx = 1:length(poseData)
         end
         
         % draw subject IDs
-        headPos = poseData{idx}.bodies{o}.joints15(2,:);
+        headPos = joints19(2,:);
         captionPos = headPos;
         captionPos(2) = captionPos(2)-30;
 
