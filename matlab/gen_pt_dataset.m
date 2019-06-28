@@ -1,4 +1,6 @@
-close all; clear all;
+close all; clear all; clc;
+
+use_rgb = 1;
 
 addpath('jsonlab');
 addpath('plotcube');
@@ -6,10 +8,20 @@ addpath('kinoptic-tools');
 
 %% parameter settings
 root_path               = '/mnt/sdb/dataset/human/cmu_panoptic';
-num_points              = 8192;
-point_in_bbox_thresh    = 2048;
 cam_id                  = [1, 2, 3, 4, 5];
-out_path                = '/mnt/sdb/dataset/pointcloud/cmu-panoptic-view-' + string(mat2str(cam_id));
+cam_id                  = [1, 2];
+% cam_id                  = [1];
+num_points              = 2048 * length(cam_id);
+point_in_bbox_thresh    = 512 * length(cam_id);
+if use_rgb
+    out_path                = '/mnt/sdb/dataset/pointcloud/cmu-panoptic-view-rgb';
+else
+    out_path                = '/mnt/sdb/dataset/pointcloud/cmu-panoptic-view';
+end
+
+for cam = 1:length(cam_id)
+    out_path = sprintf('%s-%d', out_path, cam_id(cam));
+end
 
 %% parse file
 fid = fopen('multi_person_point_pose_all.txt');
@@ -25,5 +37,9 @@ fclose(fid);
 
 %% generate data
 for i = 1:length(data_seq)
-    frames = gen_ptcloud_xyz(root_path, out_path, data_seq{i}, num_points, cam_id, point_in_bbox_thresh);
+    if use_rgb
+        gen_ptcloud_xyzrgb(root_path, out_path, data_seq{i}, num_points, cam_id, point_in_bbox_thresh);
+    else
+        gen_ptcloud_xyz(root_path, out_path, data_seq{i}, num_points, cam_id, point_in_bbox_thresh);
+    end
 end

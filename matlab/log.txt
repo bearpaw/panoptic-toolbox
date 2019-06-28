@@ -1,0 +1,65 @@
+/usr/bin/python3: symbol lookup error: /usr/bin/python3: undefined symbol: XML_SetHashSalt
+[?1h=
+                                                                                            < M A T L A B (R) >
+                                                                                  Copyright 1984-2019 The MathWorks, Inc.
+                                                                                  R2019a (9.6.0.1072779) 64-bit (glnxa64)
+                                                                                               March 8, 2019
+
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+    ----------------------------------------------------
+	Your MATLAB license will expire in 3 days.
+	Please contact your system administrator or
+	go to MathWorks.com to renew this license.
+    ----------------------------------------------------
+
+	Trial License -- for use to evaluate programs for possible purchase as an end-user only.
+
+{Undefined variable "gen_pt_dataset" or class "gen_pt_dataset.m".
+} 
+>> %%-- 05/16/2019 12:59:19 PM --%%exit                            %%-- 05/16/2019 12:57:19 PM --%%exit                            %%-- 05/16/2019 12:57:19 PM --%%exit                            %%-- 05/16/2019 12:56:18 PM --%%%%-- 05/16/2019 12:56:18 PM --%%%%-- 05/16/2019 12:56:18 PM --%%%%-- 05/16/2019 12:56:18 PM --%%%%-- 05/16/2019 12:56:18 PM --%%exit                            %%-- 05/16/2019 12:57:19 PM --%%exit                            %%-- 05/16/2019 12:59:19 PM --%%exit                            %%-- 05/16/2019 12:57:19 PM --%%exit                                ls
+[?1h=debug.txt			 gen_ptcloud_xyz.m   log.txt					    PoseLoaderJson.m			       single_person_point_pose_test.txt
+demo_kinoptic_gen_ptcloud.m	 gen_ptcloud_xyz.m~  multi_person_point_pose_all_debug.txt	    PoseProject2D.m			       single_person_point_pose_train.txt
+demo_kinoptic_gen_ptcloud_xyz.m  gen_pt_dataset.m    multi_person_point_pose_all.txt		    sample_single_person_point_pose_train.txt  single_person_point_pose_valid.txt
+demo_kinoptic_projection.m	 jsonlab	     ȏɍɎɔȏɓɄɂȏɄɁɔɁɓɅɔȏɐɏɉɎɔɃɌɏɕɄȏɃɍɕȍɐɁɎɏɐɔɉɃȍɖɉɅɗ  sample_single_person_point_pose_val.txt    Visualize2DProjection.m
+demo.m				 kinoptic-tools      plotcube					    single_person_point_pose_all.txt	       Visualize3DPose.m
+
+>> rim  un('get n_gt  pt_dataset.m')
+[H[J160906_band1
+160906_band2
+160906_band3
+160906_ian1
+160906_ian2
+160906_ian3
+160906_ian5
+160906_pizza1
+161029_flute1
+161029_piano1
+161029_piano2
+161029_piano3
+161029_piano4
+170307_dance5
+170407_office2
+170915_office1
+171026_cello3
+171026_pose1
+171026_pose2
+171026_pose3
+171204_pose1
+171204_pose2
+171204_pose3
+171204_pose4
+171204_pose5
+171204_pose6
+[Warning: Directory already exists.] 
+[> In gen_ptcloud_xyz (line 14)
+  In gen_pt_dataset (line 31)
+  In run (line 91)] 
+PLY files will be saved in: /mnt/sdb/dataset/pointcloud/cmu-panoptic-view-1-2-3-4-5/160906_band1/pointclouds
+[Warning: Directory already exists.] 
+[> In gen_ptcloud_xyz (line 18)
+  In gen_pt_dataset (line 31)
+  In run (line 91)] 
+Pose files will be saved in: /mnt/sdb/dataset/pointcloud/cmu-panoptic-view-1-2-3-4-5/160906_band1/pose3d
