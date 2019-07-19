@@ -1,5 +1,6 @@
 function gen_ptcloud_xyzrgb(root_path, out_path, seqName, ...
-                         num_sample_points, cam_id, point_in_bbox_thresh)
+                         num_sample_points, cam_id, point_in_bbox_thresh, ...
+                         useRGB)
     %% parameters
     %Relative Paths
     kinectImgDir = sprintf('%s/%s/kinectImgs',root_path,seqName);  
@@ -20,7 +21,6 @@ function gen_ptcloud_xyzrgb(root_path, out_path, seqName, ...
 
     %Other parameters
     step_size = 4;
-    useRGB = true;
     bVisOutput = false; %Turn on, if you want to visualize what's going on
     bRemoveFloor= 1;  %Turn on, if you want to remove points from floor
     floorHeightThreshold = 0.5; % Adjust this (0.5cm ~ 7cm), if floor points are not succesfully removed
