@@ -1,18 +1,23 @@
-PanopticStudio Toolbox
-======================
+# PanopticStudio Toolbox
 
-This repository shows how to work with the [Panoptic Studio](http://domedb.perception.cs.cmu.edu) (Panoptic) data.
+This repository has a toolbox to download, process, and visualize the [Panoptic Studio](http://domedb.perception.cs.cmu.edu) (Panoptic) data.
 
-## Quick start guide
+# Note:
+ - <del> Sep-21-2020: Currently our server is offline due to the power outage in the CMU Campus, and COVID-19 makes it difficult to access the server room. We will fix the issue as soon as possible.</del> 
+ - <del> Sep-30-2020: Unfortunately, we found that our server has been broken and we are replacing it now. Please wait a couple of more weeks.</del> 
+ - Oct-5-2020: Our server is back and online now!  
+
+
+# Quick start guide
 Follow these steps to set up a simple example:
 
-### 1. Check out the codebase
+## 1. Check out the codebase
 ```
 git clone https://github.com/CMU-Perceptual-Computing-Lab/panoptic-toolbox
 cd panoptic-toolbox
 ```
 
-### 2. Download a sample data and other data
+## 2. Download a sample data and other data
 To download a dataset, named "171204_pose1_sample" in this example, run the following script.
 ```
 ./scripts/getData.sh 171204_pose1_sample
@@ -32,19 +37,15 @@ This script will create a folder "./171204_pose1_sample" and download the follow
 
 Note that this sample example currently does not have VGA videos.
 
-You can also download any other seqeunce through this script. Just use the the name of the target sequence instead of the "171204_pose1_sample". 
-
-For example, 
+You can also download any other seqeunce through this script. Just use the the name of the target sequence: instead of the "171204_pose1panopticHD". 
+r example, 
 
 ```
 ./scripts/getData.sh 171204_pose1
 ```
 
-for the full version of [171204_pose1](http://domedb.perception.cs.cmu.edu/171204_pose1.html) sequence.
-
-
-
-You can also specify the number of videos you want to donwload. 
+for the full version of [171204_pose1](http://domedb.perception.cs.cmu.edu/171204_pose1.html) sequence:.
+You can also specify the number of videospanopticHDnt to donwload. 
 ```
 ./scripts/getData.sh (sequenceName) (VGA_Video_Number) (HD_Video_Number)
 ```
@@ -56,21 +57,29 @@ For example, the following command will download 240 vga videos and 10 videos.
 
 Note that we have sorted the VGA camera order so that you download uniformly distributed view. 
 
-### 3. List of Available Sequences
+## 3. Downloading All Available Sequences
 
 You can find the list of currently available sequences in the following link:
 
-[List of release sequences](https://docs.google.com/spreadsheets/d/1eoe74dHRtoMVVFLKCTJkAtF8zqxAnoo2Nt15CYYvHEE/edit?usp=sharing)
+[List of released sequences (ver1.2)](https://docs.google.com/spreadsheets/d/1eoe74dHRtoMVVFLKCTJkAtF8zqxAnoo2Nt15CYYvHEE/edit#gid=1333444170)
 
-You can see the example videos and other information of each sequence in our website:
+Downloading all of them (including videos) may take a long time, but downloading 3D keypoint files (body+face+hand upon their availability) should be "relatively" quick. 
 
-[Browsing dataset](http://domedb.perception.cs.cmu.edu/dataset.html).
+You can use the following script to download currently available sequences (ver 1.2):
+```
+./scripts/getDB_panopticHD_ver1_2.sh
+```
 
-Check the 3D viewer in each sequence page where you can visualize 3D skeletons in your web browser. For example: 
+The default setting is not downloading any videos. Feel free to change the "vgaVideoNum" and "hdVideoNum" in the script to other numbers if you also want to download videos. 
 
-http://domedb.perception.cs.cmu.edu/171204_pose1.html
 
-### 4. Extract the images & 3D keypoint data
+You can see the example videos and other information of each sequence: in our website:
+[Browsing dataset](http://domedb.perception.cs.cmupanopticHDtaset.html).
+
+Check the 3D viewer in each sequence: page where you can visualize 3D skeletons in your web browser. For example: 
+http://domedb.perception.cs.cmu.edu/panopticHDpose1.html
+
+## 4. Extract the images & 3D keypoint data
 
 This step requires [ffmpeg](https://ffmpeg.org/).
 ```
@@ -88,7 +97,29 @@ tar -xf hdPose3d_stage1.tar # Extract skeletons for HD
 cd ..
 ```
 
-### 5. Run demo programs (Python)
+## 5. Run demo programs 
+
+### Python
+This codes require numpy, matplotlib.
+
+
+Visualizing 3D keypoints (body, face, hand):
+
+```
+cd python
+jupyter notebook demo_3Dkeypoints_3dview.ipynb
+```
+The result should look like [this](https://github.com/CMU-Perceptual-Computing-Lab/panopticapi_d/blob/master/python/demo_3Dkeypoints_3dview.ipynb).
+
+
+Reprojecting 3D keypoints (body, face, hand) on a selected HD view:
+
+```
+cd python
+jupyter notebook demo_3Dkeypoints_reprojection_hd.ipynb
+```
+The result should look like [this](https://github.com/CMU-Perceptual-Computing-Lab/panopticapi_d/blob/master/python/demo_3Dkeypoints_reprojection_hd.ipynb).
+
 This codes require numpy, matplotlib.
 
 
@@ -110,8 +141,16 @@ jupyter notebook demo_3Dkeypoints_reprojection_hd.ipynb
 The result should look like [this](https://github.com/CMU-Perceptual-Computing-Lab/panopticapi_d/blob/master/python/demo_3Dkeypoints_reprojection_hd.ipynb).
 
 
+### Python + OpengGL
+- This codes require pyopengl.
 
-### 6. Run demo programs (Matlab)
+- Visualizing 3D keypoints (body, face, hand):
+
+```
+python glViewer.py
+```
+
+### Matlab
 
 Note: Matlab code is outdated, and does not handle 3D keypoint outputs (coco19 body, face, hand). 
 Please see this code only for reference. We will update this later.
@@ -122,7 +161,7 @@ Matlab example (outdated):
 >>> demo
 ```
 
-### Skeleton Output Format
+## Skeleton Output Format
 
 We reconstruct 3D skeleton of people using the method of [Joo et al. 2018](https://ieeexplore.ieee.org/document/8187699).
 
@@ -141,9 +180,7 @@ The output of each frame is written in a json file. For example,
 ```
 Here, each subject has the following values.
 
-**id**: a unique subject index within a sequence. Skeletons with the same id across time represent temporally associated moving skeletons (an individual). However, the same person may have multiple ids if he/she appeared multiple different times (e.g., left the studio and reappeared later).
-
-**joints19**: 19 3D joint locations, formatted as [x1,y1,z1,c1,x2,y2,z2,c2,...] where each c is a per-joint confidence score.
+**id**: a unique subject index within a sequence:. Skeletons with the same id across time represent temporally associated moving skeletons (an individual). However, the same person may have multiple ids **joints19**: 19 3D joint locations, formatted as [x1,y1,z1,c1,x2,y2,z2,c2,...] where each c ispanopticHDjoint confidence score.
 
 The 3D skeletons have the following keypoint order:
 
@@ -163,10 +200,10 @@ The 3D skeletons have the following keypoint order:
 12: rHip
 13: rKnee
 14: rAnkle
-15: rEye
-16: lEye
-17: rEar
-18: lEar
+15: lEye
+16: lEar
+17: rEye
+18: rEar
 ```
 
 Note that this is different from [OpenPose output order](https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/output.md), although our method is based on it. 
@@ -174,94 +211,56 @@ Note that this is different from [OpenPose output order](https://github.com/CMU-
 Note that we used to use an old format (named mpi15 as described in our [outdated document](http://domedb.perception.cs.cmu.edu/tools.html)), but we do not this format anymore. 
 
 
-KinopticStudio Toolbox
-======================
-
+# KinopticStudio Toolbox
 Kinoptic Studio is a subsystem of Panoptic Studio, which is composed of 10 Kinect2 sensors. 
+Please see: [README_kinoptic](README_kinoptic.md)
 
-Kinoptic Studio can be independently used from the Panoptic Studio.
-
-See our [PtCloudDB document](http://domedb.perception.cs.cmu.edu/ptclouddb.html) for more details
-
-## Quick start guide
-Follow these steps to set up a simple example:
-
-
-### 1. Download a data
-
-Assuming you want to donwload a sequence named "160422_haggling1"
-
-```
-./scripts/getData_kinoptic.sh 160422_haggling1
-```
-
-This script will download the following files. 
-
-* 160422_haggling1/kinect_shared_depth/ksynctables.json   #sync table
-* 160422_haggling1/kinect_shared_depth/KINECTNODE%d/depthdata.dat  #depth files
-* 160422_haggling1/kcalibration_160422_haggling1.json #multiple kinects calibration files
-* 160422_haggling1/kinectVideos/kinect_50_%d.mp4 #rgb video files
-
-
-### 2. Extract RGB frames
-
-```
-cd 160422_haggling1
-../scripts/kinectImgsExtractor.sh
-```
-
-### 3. Run demo to generate point clouds from 10 kinects
-
-```
-matlab ./matlab/demo_kinoptic_gen_ptcloud.m
-```
-
-Note that you should set your "root_path" and "seqName" in this demo file. 
-
-
-
-### 4. Run demo to project point clouds on a HD view
-
-```
-matlab ./matlab/demo_kinoptic_projection.m
-```
-
-Similarly, note that you should set your "root_path" and "seqName" in this demo file. 
-
-
-## Panoptic 3D PointCloud DB ver.1
+# Panoptic 3D PointCloud DB ver.1
 You can download all sequences included in our [3D PointCloud DB ver.1](https://docs.google.com/spreadsheets/d/1MsD9ioWBToHWz0E33gzFS5nDDjVHRECE2bZ1vM1ff_I/edit?usp=sharing) using the following script:
 
 ```
 ./scripts/getDB_ptCloud_ver1.sh
 ```
 
-## License
+# Haggling DB 
+We have released the processed data for the haggling sequence. Please see [Social Signal Processing](https://github.com/CMU-Perceptual-Computing-Lab/ssp) repository.
 
-Panoptic Studio Dataset is freely available for free non-commercial use. 
+![Teaser Image](https://github.com/jhugestar/jhugestar.github.io/blob/master/img/cvpr19_ssp.gif)
 
 
-## References
+# License
+
+Panoptic Studio Dataset is freely available for non-commercial and research purpose only. 
+
+# References
 
 By using the dataset, you agree to cite at least one of the following papers. 
-
-@InProceedings{Joo_2015_ICCV,
+```
+@inproceedings{Joo_2015_ICCV,
 author = {Joo, Hanbyul and Liu, Hao and Tan, Lei and Gui, Lin and Nabbe, Bart and Matthews, Iain and Kanade, Takeo and Nobuhara, Shohei and Sheikh, Yaser},
 title = {Panoptic Studio: A Massively Multiview System for Social Motion Capture},
 booktitle = {ICCV},
 year = {2015} }
 
-@article{Joo_2017_TPAMI,
+@inproceedings{Joo_2017_TPAMI,
 title={Panoptic Studio: A Massively Multiview System for Social Interaction Capture},
 author={Joo, Hanbyul and Simon, Tomas and Li, Xulong and Liu, Hao and Tan, Lei and Gui, Lin and Banerjee, Sean and Godisart, Timothy Scott and Nabbe, Bart and Matthews, Iain and Kanade, Takeo and Nobuhara, Shohei and Sheikh, Yaser},
 journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
 year={2017} }
 
-@article{Simon_2017_CVPR,
+@inproceedings{Simon_2017_CVPR,
 title={Hand Keypoint Detection in Single Images using Multiview Bootstrapping},
 author={Simon, Tomas and Joo, Hanbyul and Sheikh, Yaser},
 journal={CVPR},
 year={2017} }
 
+@inproceedings{joo2019ssp,
+  title={Towards Social Artificial Intelligence: Nonverbal Social Signal Prediction in A Triadic Interaction},
+  author={Joo, Hanbyul and Simon, Tomas and Cikara, Mina and Sheikh, Yaser},
+  booktitle={CVPR},
+  year={2019}
+}
 
 
+
+```
